@@ -1,0 +1,53 @@
+﻿
+.child-style frame {
+    height: 120;
+    background-color: black;
+    margin: 10;
+    border-radius: 10;
+    flex-basis: 33%;
+}
+
+.child-style-tablet frame {
+    height: 120;
+    background-color: black;
+    margin: 10;
+    border-radius: 10;
+    flex-basis: 20%;
+}
+
+.child-news-style frame {
+    width: 380;
+    flex-basis: 100%;
+    background-color: darkgray;
+    margin: 10;
+    border-radius: 10;
+    vertical-align: super;
+}
+
+.control label {
+    color: black;
+    text-shadow:initial;
+}
+
+
+.child-style-Card frame {
+    height: 120;
+    background-color: black;
+    margin: 10;
+    border-radius: 10;
+}
+
+.child-style-Card-tablet frame {
+    height: 200;
+    background-color: black;
+    margin: 10;
+    border-radius: 10;
+}
+.child-footer-style frame {
+    height: 50;
+    width: 10;
+    background-color: darkgray;
+    margin: 10;
+    border-radius: 100;
+    vertical-align: super;
+}

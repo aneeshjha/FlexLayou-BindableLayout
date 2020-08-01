@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             x:Class="DemoFlex_bindable_cntrlTemplate.DashBoard.HeaderView">
+    <ContentView.Content>
+        <FlexLayout FlexLayout.Grow="1"
+                    JustifyContent="Start"
+                    Direction="Row"
+                    Padding="10"
+                    BackgroundColor="Transparent">
+            <Image FlexLayout.Basis="15%"
+                   Margin="0,10"
+                   Source="Menu.png"
+                   Aspect="AspectFit"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BurgerButtonCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <StackLayout FlexLayout.Basis="60%"/>
+            <ffimageloading:SvgCachedImage FlexLayout.Basis="15%"
+                                           Source="{Binding DisplayedImageGif}"
+                                           Aspect="AspectFit"
+                                           IsEnabled="False"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="CenterAndExpand">
+            </ffimageloading:SvgCachedImage>
+        </FlexLayout>
+    </ContentView.Content>
+</ContentView>

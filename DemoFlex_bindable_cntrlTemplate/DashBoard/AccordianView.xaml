@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:DemoFlex_bindable_cntrlTemplate.Converters"
+             x:Class="DemoFlex_bindable_cntrlTemplate.DashBoard.AccordianView">
+    <ContentView.Resources>
+        <converters:BoolToStringConverter x:Key="boolToStringConverter" />
+    </ContentView.Resources>
+    <ContentView.Content>
+        <!--Parent-->
+        <ScrollView>
+        <StackLayout BindableLayout.ItemsSource="{Binding parents}"
+                     VerticalOptions="FillAndExpand"
+                     Spacing="0"
+                     HorizontalOptions="FillAndExpand"
+                     x:Name="Card">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0"
+                               Margin="0,0,1,0"
+                               BorderColor="Green"
+                               HeightRequest="20"
+                               HorizontalOptions="FillAndExpand">
+                            <FlexLayout Direction="Row"
+                                        FlexLayout.Grow="1"
+                                        JustifyContent="Start">
+                                <Label Text="{Binding Header}"
+                                       FlexLayout.Basis="80%"
+                                       BackgroundColor="White"/>
+                                <Image FlexLayout.Basis="20%"
+                                       Source="{Binding isExpanded,Converter={StaticResource boolToStringConverter}}"
+                                       Aspect="AspectFit"/>
+                            </FlexLayout>
+                            
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.Expand_Command,
+                                                                    Source={x:Reference Card}}" CommandParameter="{Binding}"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+
+                        <!--Child-->
+                        <StackLayout BindableLayout.ItemsSource="{Binding childs}"
+                                     IsVisible="{Binding isExpanded}"
+                                     Grid.Row="1"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="FillAndExpand">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <StackLayout Orientation="Horizontal"
+                                                     HorizontalOptions="FillAndExpand"
+                                                     VerticalOptions="FillAndExpand"
+                                                     HeightRequest="50"
+                                                     Padding="10,5,5,5">
+                                            <Label Grid.Row="0"
+                                                   FontAttributes="Bold"
+                                                   HeightRequest="30"
+                                                   VerticalTextAlignment="Center"
+                                                   BackgroundColor="{StaticResource Amber}"
+                                                   HorizontalTextAlignment="Center"
+                                                   HorizontalOptions="FillAndExpand"
+                                                   Text="{Binding Name}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.Navigate_Command,
+                                                                    Source={x:Reference Card}}" CommandParameter="{Binding}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Image WidthRequest="40"
+                                                   HeightRequest="40"
+                                                   BackgroundColor="Green"
+                                                   HorizontalOptions="End"
+                                                   VerticalOptions="Center"
+                                                   Source="{Binding isChildExpanded,Converter={StaticResource boolToStringConverter}}"
+                                                   Aspect="AspectFit">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.Expand_Command,
+                                                                    Source={x:Reference Card}}" CommandParameter="{Binding}"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                        </StackLayout>
+
+                                        <!--Sub-Child-->
+                                        <StackLayout BindableLayout.ItemsSource="{Binding subChilds}"
+                                                     Grid.Row="1"
+                                                     IsVisible="{Binding isChildExpanded}"
+                                                     VerticalOptions="FillAndExpand"
+                                                     HorizontalOptions="FillAndExpand">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Label Text="{Binding SubChildName}" Margin="30,5,5,5"
+                                                           HorizontalTextAlignment="Center"
+                                                           BackgroundColor="Gray"
+                                                           HeightRequest="30"
+                                                           FontAttributes="Bold"
+                                                           FontSize="Medium"/>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

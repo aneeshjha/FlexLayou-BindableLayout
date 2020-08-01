@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:DemoFlex_bindable_cntrlTemplate.FlexlayoutSamples.ViewModels"
+             xmlns:converters="clr-namespace:DemoFlex_bindable_cntrlTemplate.Converters"
+             x:Class="DemoFlex_bindable_cntrlTemplate.FlexlayoutSamples.Views.CardView"
+             ControlTemplate="{StaticResource MasterPage}"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FloatToFlexBasisValueConverter x:Key="FloatToFlexBasisValueConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+    <viewModels:GalleryViewModel/>
+  </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="Transparent"
+                    x:Name="ScrollViewLayout">
+            <FlexLayout x:Name="Card"
+                        Direction="Row"
+                        StyleClass="{OnIdiom Phone='child-style-Card',Tablet='child-style-Card-tablet'}"
+                        Wrap="Wrap"
+                        JustifyContent="Center"
+                        AlignContent="Start"
+                        VerticalOptions="Fill"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Transparent"
+                        BindableLayout.ItemsSource="{Binding Animals}"
+                        Padding="0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <!--FlexLayout.Basis="{Binding basis, Converter={StaticResource FloatToFlexBasisValueConverter}}"-->
+                        <Frame Padding="0" FlexLayout.Basis="100%">
+                            <FlexLayout Direction="Row"
+                                        FlexLayout.Grow="1"
+                                        JustifyContent="Start"
+                                        Padding="0">
+                                <BoxView BackgroundColor="{Binding Color}"
+                                         FlexLayout.Basis="1%"/>
+                                <Grid FlexLayout.Basis="30%"
+                                      HorizontalOptions="FillAndExpand"
+                                      VerticalOptions="FillAndExpand"
+                                      Padding="10">
+                                    <Frame CornerRadius="100"
+                                           Padding="0"
+                                           BackgroundColor="Gray"
+                                           IsClippedToBounds="True">
+                                        <Image Source="{Binding ImageUrl}"
+                                               Aspect="Fill"
+                                               HorizontalOptions="CenterAndExpand"
+                                               VerticalOptions="CenterAndExpand"/>
+                                    </Frame>
+                                </Grid>
+                                <FlexLayout FlexLayout.Basis="50%"
+                                            FlexLayout.AlignSelf="Center"
+                                            FlexLayout.Shrink="0"
+                                            Direction="Column">
+                                    <Label Text="{Binding Name}"
+                                           FlexLayout.Basis="50%"
+                                           FlexLayout.AlignSelf="Stretch"
+                                           TextColor="{Binding Color}"
+                                           FontAttributes="Italic"
+                                           FontSize="Large"/>
+                                    <Label Text="{Binding Location,
+                                                StringFormat='Location : {0}'}"
+                                           FlexLayout.Basis="50%"
+                                           TextColor="White"/>
+                                </FlexLayout>
+                                <StackLayout FlexLayout.Basis="9%"/>
+                                <FlexLayout FlexLayout.Basis="10%"
+                                            Direction="Column">
+                                    <Image FlexLayout.Basis="{OnIdiom Phone='30%', Tablet='35%'}"
+                                           Aspect="Fill"
+                                           Source="TileClose_onTap.png">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteCommand,
+                                                                    Source={x:Reference Card}}" CommandParameter="{Binding}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </FlexLayout>
+                            </FlexLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

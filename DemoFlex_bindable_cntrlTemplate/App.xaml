@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:control="clr-namespace:DemoFlex_bindable_cntrlTemplate.DashBoard"
+             mc:Ignorable="d" x:Class="DemoFlex_bindable_cntrlTemplate.App">
+    <Application.Resources>
+        <StyleSheet Source="Styles/app.css"/>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#3f4350</Color>
+            <Color x:Key="MajorColor">#3f4350</Color>
+            <Color x:Key="Amber">#F3AB40</Color>
+            <Color x:Key="PrimaryBlue">#1670b7</Color>
+            <Color x:Key="SecondaryBlue">#7ca3ce</Color>
+            <Color x:Key="LightGrey">#eeeeee</Color>
+            <Color x:Key="Grey">#353535</Color>
+            <Color x:Key="DarkGrey">#000000</Color>
+            <Color x:Key="CharcolGrey">#434343</Color>
+            <Color x:Key="LightPink">#FADCDF</Color>
+            <Color x:Key="LightGrayishCyan">#DBEBEB</Color>
+            <Color x:Key="BlueText">#5C96CB</Color>
+            <Color x:Key="SoftGreen">#C0D68D</Color>
+            <Color x:Key="BrickRed">#C63742</Color>
+            <Color x:Key="GrayishYellow">#D1D1CC</Color>
+            <Color x:Key="SmokyGray">#D1D1CC</Color>
+            <Color x:Key="SoftYellow">#F4E650</Color>
+            <Color x:Key="DarkModerateLimeGreen">#49A555</Color>
+            <Color x:Key="BrightOrange">#ECAA44</Color>
+            <Color x:Key="BrightGreen">#6DA820</Color>
+            <Color x:Key="PurePink">#FF0049</Color>
+            <Color x:Key="BrightRed">#EB343C</Color>
+            <Color x:Key="GreenAtlantis">#83C92E</Color>
+            <Color x:Key="RedTallPoppy">#C3262D</Color>
+            <Color x:Key="PinkPuce">#C67993</Color>
+            <Color x:Key="VeryLightGrey">#D9D9D9</Color>
+            <Color x:Key="Warning">#ED7D31</Color>
+            <Color x:Key="OrangeTacao">#f4b083</Color>
+            <Color x:Key="Black">#000000</Color>
+            <Color x:Key="Header">#000000</Color>
+
+
+            <OnPlatform
+                x:Key="HomeShadowGridValue"
+                x:TypeArguments="x:Double"
+                Android="5"
+                iOS="10" />
+
+            <!--Control-Template-->
+            <ControlTemplate x:Key="MasterPage">
+
+                <FlexLayout FlexLayout.Grow="1"
+                            JustifyContent="Start"
+                            Direction="Column">
+
+                    <!--Header-->
+                    <control:HeaderView FlexLayout.Basis="10%"
+                                        BackgroundColor="{DynamicResource Black}"
+                                        BindingContext="{TemplateBinding BindingContext}"/>
+                    
+                    <Grid FlexLayout.Basis="90%">
+                        <FlexLayout FlexLayout.Grow="1"
+                                    BackgroundColor="Brown"
+                                    Direction="Column">
+
+                            <ContentPresenter BackgroundColor="{DynamicResource PrimaryColor}"
+                                              FlexLayout.Basis="90%">
+
+                                <!--Content-->
+
+                            </ContentPresenter>
+                            <control:FooterView FlexLayout.Basis="10%"
+                                                BindingContext="{TemplateBinding BindingContext}"/>
+                        </FlexLayout>
+
+                        <!--HamburgerMenu-->
+                        <Grid FlexLayout.Grow="1"
+                              IsVisible="{TemplateBinding BindingContext.IsVisibleTapoutside}">
+                            <Grid HorizontalOptions="FillAndExpand"
+                                  VerticalOptions="FillAndExpand"
+                                  BackgroundColor="DarkSlateGray"
+                                  Opacity=".5"/>
+                            <FlexLayout FlexLayout.Grow="1"
+                                    BackgroundColor="Transparent">
+                                <FlexLayout.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Command="{TemplateBinding BindingContext.Outside_TappedCommand}"/>
+                                </FlexLayout.GestureRecognizers>
+                                <StackLayout  FlexLayout.Basis="{OnIdiom Phone='60%',Tablet='40%'}"
+                                              VerticalOptions="FillAndExpand"
+                                              BackgroundColor="White">
+
+                                    <control:AccordianView BindingContext="{TemplateBinding BindingContext}"/>
+
+                                </StackLayout>
+                            </FlexLayout>
+                        </Grid>
+
+                    </Grid>
+
+                </FlexLayout>
+
+            </ControlTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
